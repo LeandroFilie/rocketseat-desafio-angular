@@ -1,7 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { ProductsService } from '../../services/products';
 import { take } from 'rxjs';
-import { IProductsResponse } from '../../interfaces/products-response';
 import { IProductResponse } from '../../interfaces/product-response';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 
