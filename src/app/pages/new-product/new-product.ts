@@ -3,6 +3,7 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { ProductsService } from '../../services/products';
 import { INewProductRequest } from '../../interfaces/new-product.request';
 import { take } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-new-product',
@@ -12,6 +13,7 @@ import { take } from 'rxjs';
 })
 export class NewProduct {
   private readonly _productsService = inject(ProductsService);
+  private readonly _router = inject(Router);
 
   productImageBase64 = '';
   successMessage = '';
@@ -67,9 +69,11 @@ export class NewProduct {
       next: (response) => {
         this.successMessage = response.message;
       },
-    })
+    });
+  }
 
-
+  cancel() {
+    this._router.navigate(['/products']);
   }
 
 }
