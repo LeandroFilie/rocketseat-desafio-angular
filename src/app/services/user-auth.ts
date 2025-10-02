@@ -6,7 +6,11 @@ import { Injectable } from '@angular/core';
 export class UserAuthService {
 
   getUserToken() {
-    return '';
+    return localStorage.getItem('auth-token') || '';
+  }
+
+  setUserToken(token: string) {
+    localStorage.setItem('auth-token', token);
   }
   
 }
