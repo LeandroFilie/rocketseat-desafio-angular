@@ -3,6 +3,7 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { UserService } from '../../services/user';
 import { UserAuthService } from '../../services/user-auth';
 import { Router } from '@angular/router';
+import { take } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -29,16 +30,17 @@ export class Login {
     }
 
     this._userService.login(this.userForm.get('email')?.value as string, this.userForm.get('password')?.value as string)
-      .subscribe({
-        next: (response) => {
-          this.loginErrorMessage = '';
-          
-          this._userAuthService.setUserToken(response?.data?.token);
-          this._router.navigate(['/products']);
-        },
-        error: (error) => {
-          this.loginErrorMessage = error?.error?.message;
-        },
-      });
+    .pipe(take(1))
+    .subscribe({
+      next: (response) => {
+        this.loginErrorMessage = '';
+        
+        this._userAuthService.setUserToken(response?.data?.token);
+        this._router.navigate(['/products']);
+      },
+      error: (error) => {
+        this.loginErrorMessage = error?.error?.message;
+      },
+    });
   }
 }
